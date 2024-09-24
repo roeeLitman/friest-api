@@ -1,35 +1,31 @@
-import express from 'express'
+import express from "express";
+import amn from './anm.controler.js'
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const app = express()
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-const port = 770
 
-app.get('/', (req, res)=>{
-    res.send("wolcam to my server")
-})
+const app = express();
 
-app.get('/amn', (req, res)=>{
-    res.send("wolcam to my server")
-})
+app.use(express.json())
+app.use('/amn', amn)
 
-app.get('/amn/:id', (req, res)=>{
-    res.send("wolcam to my server")
-})
+// const mw = (req, res, next) => { 
+//     console.log(`${req.method}: ${req.url}`);
+//     next()
+// }
 
-app.get('/amn/summary', (req, res)=>{
-    res.send("wolcam to my server")
-})
+const port = 7700;
 
-app.post('/amn', (req, res)=>{
-    res.send("wolcam to my server")
-})
 
-app.patch('/amn', (req, res)=>{
-    res.send("wolcam to my server")
-})
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + '/views/index.html')
+});
 
-app.listen(port, ()=>{
-    console.log(`server listen to ${port} port. visit http://localhost:${port}`);    
-})
+app.listen(port, () => {
+  console.log(`server listen to ${port} port. visit http://localhost:${port}`);
+});
 
 
